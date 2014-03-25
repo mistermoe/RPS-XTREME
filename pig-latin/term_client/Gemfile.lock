@@ -1,0 +1,17 @@
+GIT
+  remote: https://github.com/brandontbeasley/pig_latin
+  revision: c72af8857cb1fecc882264ea4fd22f219ddb4f12
+  specs:
+    pig_latin (0.0.1)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    colorize (0.7.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  colorize
+  pig_latin!

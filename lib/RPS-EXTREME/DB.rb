@@ -21,8 +21,8 @@ module RPS
       @users[uid]
     end
 
-    def create_match()
-      match = Match.new
+    def create_match(uid)
+      match = Match.new(user.id)
       @matches[match.id] = match
       match
     end
@@ -39,6 +39,10 @@ module RPS
 
   def get_game(mid)
     @games[gid]
+  end
+
+  def list_users
+    @users.values
   end
 
   end

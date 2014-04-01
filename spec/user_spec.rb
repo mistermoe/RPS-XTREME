@@ -3,7 +3,7 @@ require 'spec_helper'
 describe RPS::User do
   before do
     RPS::User.class_variable_set(:@@counter, 0)
-    @user = RPS::User.new('fernando')
+    @user = RPS::User.new('fernando', 'tittywagon')
   end
   it 'exists' do
     expect(RPS::User).to be_a(Class)
@@ -14,7 +14,10 @@ describe RPS::User do
       expect(@user.id).to eq(1)
     end
     it 'takes a name as an argument' do
-      expect(@user.name).to eq('fernando')
+      expect(@user.username).to eq('fernando')
+    end
+    it 'takes a password as an argument' do
+      expect(@user.password).to eq('tittywagon')
     end
     it 'sets win count to 0' do
       expect(@user.win_count).to eq(0)

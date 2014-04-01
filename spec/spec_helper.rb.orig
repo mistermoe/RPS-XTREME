@@ -1,0 +1,7 @@
+require 'require_all'
+<<<<<<< HEAD
+require_relative '../lib/rps-extreme.rb'
+=======
+require_rel '../lib/rps-extreme.rb'
+>>>>>>> user/user-invite
+require 'pry-debugger'

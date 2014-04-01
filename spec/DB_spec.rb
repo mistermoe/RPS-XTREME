@@ -38,4 +38,17 @@ describe RPS::DB do
     end
   end
 
+  describe '.create_match' do
+    it 'creates a match' do
+      match = @db.create_match
+      expect(@db.matches.values.first.id).to eq(match.id)
+    end
+  end
+  describe '.get_match' do
+    it 'gets a match based on mid' do
+      match = @db.create_match
+      retrieved_match = @db.get_match(match.id)
+      expect(retrieved_match.id).to eq(match.id)
+    end
+  end
 end

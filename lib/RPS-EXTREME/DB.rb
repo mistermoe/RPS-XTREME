@@ -21,6 +21,15 @@ module RPS
       @users[uid]
     end
 
+    def create_match()
+      match = Match.new
+      @matches[match.id] = match
+      match
+    end
+
+    def get_match(mid)
+      @matches[mid]
+    end
 
   end
 end

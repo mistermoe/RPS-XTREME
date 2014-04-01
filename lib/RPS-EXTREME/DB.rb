@@ -31,5 +31,15 @@ module RPS
       @matches[mid]
     end
 
+     def create_game()
+    game = Game.new
+    @games[game.id] = game
+    game
+  end
+
+  def get_game(mid)
+    @games[gid]
+  end
+
   end
 end

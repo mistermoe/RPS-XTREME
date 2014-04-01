@@ -1,2 +1,3 @@
+require 'require_all'
 require_rel '../lib/rps-extreme.rb'
-require 'pry-debugger.rb'
+require 'pry-debugger'

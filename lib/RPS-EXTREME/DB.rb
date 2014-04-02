@@ -32,14 +32,19 @@ module RPS
       @matches[mid]
     end
 
-     def create_game()
-    game = Game.new
+    def list_matches
+      @matches.values
+    end
+
+     def create_game(mid)
+    game = Game.new(mid)
     @games[game.id] = game
     game
   end
 
-  def get_game(gid)
-    @games[gid]
+  def get_game(mid)
+    game = @games.values.select{|game| game.match_id == mid}
+    game
   end
 
   def list_users
@@ -55,6 +60,8 @@ module RPS
   def get_session(sid)
     @sessions[sid]
   end
+
+
 
   end
 end

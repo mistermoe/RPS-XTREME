@@ -4,6 +4,9 @@ describe 'Match' do
   it 'exists' do
     expect(RPS::Match).to be_a(Class)
   end
+  before do
+    RPS::Match.class_variable_set(:@@counter, 0)
+  end
 
   it 'is initialized with an id' do
     @newmatch = RPS::Match.new()

@@ -61,15 +61,22 @@ describe RPS::DB do
 
     describe '.create_game' do
     it 'creates a game' do
-      game = @db.create_game
+      game = @db.create_game(1)
       expect(@db.games.values.first.id).to eq(game.id)
+      expect(@db.games.values.first.match_id).to eq(1)
     end
   end
   describe '.get_game' do
-    it 'gets a game based on gid' do
-      game = @db.create_game
-      retrieved_game = @db.get_game(game.id)
-      expect(retrieved_game.id).to eq(game.id)
+    it 'gets a game based on mid' do
+
+      home = @db.create_user('cornelius cordova', 'butchfest 2025')
+      away = @db.create_user('agnus tillyweed', 'frothy milk')
+
+      match = @db.create_match(home.id, away.id)
+      game = @db.create_game(match.id)
+      retrieved_game = @db.get_game(match.id)
+
+      expect(retrieved_game.first.match_id).to eq(match.id)
     end
   end
 

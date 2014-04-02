@@ -11,7 +11,7 @@ module RPS
       else
         return failure(:incorrect_password)
       end
-      success(session: session.id)
+      success(session_key: session.id)
     end
   end
 end

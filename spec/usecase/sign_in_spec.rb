@@ -10,7 +10,7 @@ describe RPS::SignIn do
 
     result = RPS::SignIn.run(username: user.username, password: user.password)
     expect(result.success?).to eq(true)
-    expect(result.session).to eq(1)
+    expect(result.session_key).to eq(1)
     #if no username -> error
     #check password on retrieved user with password passed in
     #creates session

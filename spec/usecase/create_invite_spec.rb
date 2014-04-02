@@ -6,7 +6,7 @@ describe RPS::CreateInvite do
     away_player = RPS.DB.create_user('frank thorton', 'danish fetish')
 
     home_session = RPS::SignIn.run(username: 'barbara beavertail', password: 'bushwacker')
-    result = RPS::CreateInvite.run(session: home_session, username: 'frank thorton')
+    result = RPS::CreateInvite.run(session_key: home_session, username: 'frank thorton')
 
     expect(result.success?).to be_true
     expect(result.match.home_id).to eq(home_player.id)

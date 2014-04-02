@@ -7,12 +7,12 @@ describe RPS::Sessions do
 
   before do
     RPS::Sessions.class_variable_set(:@@counter, 0)
-    @session = RPS::Sessions.new(uid)
+    @session = RPS::Sessions.new(1)
   end
 
   describe '.initialize' do
     it 'takes a user id' do
-
+      expect(@session.uid).to eq(1)
     end
   end
 

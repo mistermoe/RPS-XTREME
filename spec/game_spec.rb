@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe 'Game' do
   it 'exists' do
+    RPS::Game.class_variable_set(:@@counter, 0)
     expect(RPS::Game).to be_a(Class)
   end
 

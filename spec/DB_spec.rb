@@ -6,6 +6,7 @@ describe RPS::DB do
   end
 
   before do
+    RPS::Match.class_variable_set(:@@counter, 0)
     @db = RPS::DB.new
   end
 
@@ -40,13 +41,19 @@ describe RPS::DB do
 
   describe '.create_match' do
     it 'creates a match' do
-      match = @db.create_match
+      home = @db.create_user('cornelius cordova', 'butchfest 2025')
+      away = @db.create_user('agnus tillyweed', 'frothy milk')
+
+      match = @db.create_match(home.id, away.id)
+
       expect(@db.matches.values.first.id).to eq(match.id)
+      expect(@db.matches.values.first.home_id).to eq(home.id)
+      expect(@db.matches.values.first.away_id).to eq(away.id)
     end
   end
   describe '.get_match' do
     it 'gets a match based on mid' do
-      match = @db.create_match
+      match = @db.create_match(1, 1)
       retrieved_match = @db.get_match(match.id)
       expect(retrieved_match.id).to eq(match.id)
     end

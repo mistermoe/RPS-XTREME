@@ -7,7 +7,7 @@ module RPS
       #look for the user that has var username
       user_find = RPS.DB.list_users.find{|user| user.username == username}
       #return id of self.user
-      session_decrypt = RPS.DB.get_session(user_session.session_key)
+      session_decrypt = RPS.DB.get_session(user_session)
       #return matches that var username has invited
       match_select = RPS.DB.list_matches.select{|match| match.home_id == user_find.id }
       #find match that var username invited self.user to

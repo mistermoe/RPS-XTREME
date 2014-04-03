@@ -9,13 +9,17 @@ module RPS
       #assign the players move to a variable
       player_action = inputs[:player_action]
 
+      if (player_action != 'paper' && player_action != 'rock' && player_action != 'scissors')
+        return failure(:incorrect_action)
+      end
       #get the user id
-      user_id = RPS.DB.get_session(user_session.session_key)
+      user_id = RPS.DB.get_session(user_session)
 
       #get the match
-      match_find = RPS.DB.get_match(mid.match.id)
+      match_find = RPS.DB.get_match(mid)
+      return failure(:mid_doesnt_exist) if match_find.nil?
       #get the game
-      game_find = RPS.DB.get_game(mid.match.id)
+      game_find = RPS.DB.get_game(mid)
       the_game =  game_find.find{|game| game.winner_id == nil}
       #check to see if the player is home or away
       if (user_id == match_find.home_id)
@@ -45,7 +49,7 @@ module RPS
         elsif (away_wins > 2)
           match_find.winner_id = match_find.away_id
         else
-          new_game = RPS.DB.create_game(mid.match.id)
+          new_game = RPS.DB.create_game(mid)
         end
       end
       success(the_game: the_game, the_match: match_find)

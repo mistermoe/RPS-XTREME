@@ -2,8 +2,11 @@ module RPS
   class PlayGame < UseCase
     def run(inputs)
 
+      #assign the session key to a variable
       user_session = inputs[:session_key]
+      #assign the match id passed in by the client to a variable
       mid = inputs[:mid]
+      #assign the players move to a variable
       player_action = inputs[:player_action]
 
       #get the user id
@@ -13,9 +16,7 @@ module RPS
       match_find = RPS.DB.get_match(mid.match.id)
       #get the game
       game_find = RPS.DB.get_game(mid.match.id)
-
       the_game =  game_find.find{|game| game.winner_id == nil}
-
       #check to see if the player is home or away
       if (user_id == match_find.home_id)
         the_game.home_play = player_action
@@ -24,32 +25,31 @@ module RPS
       end
 
       if (the_game.home_play != nil && the_game.away_play != nil)
-        victor = RPS_Referee(the_game.home_play, the_game.away_play)
+        # victor = self.RPS_Referee(the_game.home_play, the_game.away_play)
+
+       if (the_game.home_play == the_game.away_play)
+        the_game.winner_id = 'Tie'
+      elsif ((the_game.home_play == 'rock' && the_game.away_play == 'scissors') || (the_game.home_play == 'paper' && the_game.away_play == 'rock') || (the_game.home_play == 'scissors' && the_game.away_play == 'paper'))
+        the_game.winner_id = match_find.home_id
+      else
+        the_game.winner_id = match_find.away_id
+      end
+
+
         home_wins = game_find.select{|game| game.winner_id == match_find.home_id}.count
 
         away_wins = game_find.select{|game| game.winner_id == match_find.away_id}.count
 
         if (home_wins > 2)
-          match_find.winner_id = match.home_id
+          match_find.winner_id = match_find.home_id
         elsif (away_wins > 2)
-          match_find.winner_id = match.away_id
+          match_find.winner_id = match_find.away_id
         else
           new_game = RPS.DB.create_game(mid.match.id)
         end
       end
-      success(victor: victor, the_game: the_game)
+      success(the_game: the_game, the_match: match_find)
+    end
 
-    end
-    def RPS_Referee(home_play, away_play)
-      if (home_play == away_play)
-        the_game.winner_id = 'Tie'
-      elsif ((home_play == 'rock' && away_play == 'scissors') || (home_play == 'paper' && away_play == 'rock') || (home_play = 'scissors' && away_play = 'paper'))
-        the_game.winner_id = match_find.home_id
-      else
-        the_game.winner_id = mind_find.away_id
-      end
-      victor = the_game.winner_id
-      victor
-    end
   end
 end

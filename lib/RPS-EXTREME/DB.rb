@@ -61,7 +61,13 @@ module RPS
     @sessions[sid]
   end
 
+  def get_matches_by_uid(uid)
+    home_matches = @matches.values.select {|match| match.home_id == uid}
+    away_matches = @matches.values.select {|match| match.away_id == uid}
+    total_matches = home_matches + away_matches
 
+    total_matches
+  end
 
   end
 end

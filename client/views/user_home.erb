@@ -1,0 +1,34 @@
+<h1>Welcome <%= @username %></h1>
+
+<% if @user_matches.count > 0 %>
+  <ul>
+  <% @user_matches.each do |match| %>
+    <% home_name = RPS.DB.get_user(match.home_id) %>
+    <% away_name = RPS.DB.get_user(match.away_id) %>
+    <li><%= home_name.username %> vs. <%= away_name.username %> ></li>
+  <% end %>
+<% else %>
+  <h3>you have no active matches!</h3>
+<% end %>
+
+
+
+<h1>Invite a friend.. if you have any</h1>
+<form action="/create-invite" method="post">
+
+  <label for="away_player">Opponent Name</label>
+  <input type="text" id="away_player" name="away_player">
+  <input type="submit" value="invite">
+</form>
+
+<h1>ACCEPT USER INVITE.. if you have any, which you probably dont because you're a loser</h1>
+
+<form action="accept-invite" method="post">
+<label for="away_player">Opponent Name</label>
+  <input type="text" id="away_player" name="away_player">
+  <input type="submit" value="invite">
+</form>
+
+<div>
+  <a href="/list-games">see games</a>
+</div>
